@@ -1,6 +1,6 @@
-#线程通信
-###1、等待通知机制
-####wait/notifyAll
+# 线程通信
+### 1、等待通知机制
+#### wait/notifyAll
 ```java
 public class TwoThreadNotify {
 	public int start = 1;

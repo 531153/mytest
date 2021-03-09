@@ -20,8 +20,11 @@ public class JoinDemo extends Thread {
 		System.out.println("num:" + i);
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws InterruptedException {
 		Thread previousThread = Thread.currentThread();
+		System.out.println("main join");
+		Thread.currentThread().join(1000);
+		System.out.println("main join out");
 		for (int i = 0; i < 10; i++) {
 			JoinDemo joinDemo = new JoinDemo(previousThread, i);
 			joinDemo.start();

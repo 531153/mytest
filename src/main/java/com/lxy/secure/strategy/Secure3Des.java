@@ -12,6 +12,7 @@ import java.util.Map;
  * 3Des加密
  * map.key 秘钥
  * map.charset 编码
+ * map.returnType 加密返回类型 1：hex 16进制，2：base64
  */
 public class Secure3Des implements Secure {
 	/**
@@ -24,13 +25,20 @@ public class Secure3Des implements Secure {
 	public String encrypt(String content, Map<String, Object> argumentMap) {
 		String          deskey  = MapUtils.getString(argumentMap, "key", "");
 		String          charset = MapUtils.getString(argumentMap, "charset", "utf-8");
+		int             returnType = MapUtils.getIntValue(argumentMap, "returnType", 1);
 		SymmetricCrypto des     = null;
 		try {
 			des = new SymmetricCrypto(SymmetricAlgorithm.DESede, deskey.getBytes(charset));
 		} catch (UnsupportedEncodingException e) {
 			e.printStackTrace();
 		}
-		return des.encryptHex(content);
+		String result = "";
+		try {
+			result = returnType == 1 ? des.encryptHex(content.getBytes(charset)) : des.encryptBase64(content.getBytes(charset));
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return result;
 	}
 
 	@Override

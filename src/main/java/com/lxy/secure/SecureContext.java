@@ -19,6 +19,7 @@ public class SecureContext {
 	private Secure secure;
 	private String content;
 	private Map<String, Object> argumentMap;
+	private static  Secure secureMd5 = new SecureMd5();
 
 	public SecureContext(String strategy, String content) {
 		this(strategy, content, null);
@@ -29,7 +30,7 @@ public class SecureContext {
 		this.argumentMap = argumentMap;
 		switch (strategy) {
 			case "md5":
-				this.secure = new SecureMd5();
+				this.secure = secureMd5;
 				break;
 			case "base64":
 				this.secure = new SecureBase64();

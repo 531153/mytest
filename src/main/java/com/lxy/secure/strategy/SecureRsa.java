@@ -18,6 +18,7 @@ import java.util.Map;
  * map.publicKey 公钥
  * map.charset 编码
  * map.keyType 1:公钥加密，私钥解密；2:私钥加密，公钥解密
+ * map.returnType 加密返回类型 1：hex 16进制，2：base64
  * @author lxy
  */
 public class SecureRsa implements Secure {
@@ -33,18 +34,19 @@ public class SecureRsa implements Secure {
 		String          publicKey  = MapUtils.getString(argumentMap, "publicKey", "");
 		int          keyType  = MapUtils.getIntValue(argumentMap, "keyType", 1);
 		String          charset = MapUtils.getString(argumentMap, "charset", "utf-8");
+		int             returnType = MapUtils.getIntValue(argumentMap, "returnType", 1);
 		AsymmetricCrypto rsa     = null;
 		rsa = new AsymmetricCrypto(AsymmetricAlgorithm.RSA,privateKey,publicKey);
 		String result = "";
 		if(keyType==1){
 			try {
-				result= rsa.encryptHex(content.getBytes(charset), KeyType.PublicKey);
+				result= returnType==1?rsa.encryptHex(content.getBytes(charset), KeyType.PublicKey):rsa.encryptBase64(content.getBytes(charset),KeyType.PublicKey);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
 		}else{
 			try {
-				result= rsa.encryptHex(content.getBytes(charset), KeyType.PrivateKey);
+				result= returnType==1?rsa.encryptHex(content.getBytes(charset), KeyType.PrivateKey):rsa.encryptBase64(content.getBytes(charset), KeyType.PrivateKey);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}

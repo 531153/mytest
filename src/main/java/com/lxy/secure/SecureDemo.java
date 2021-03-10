@@ -13,12 +13,17 @@ import cn.hutool.crypto.symmetric.DES;
 import cn.hutool.crypto.symmetric.SymmetricAlgorithm;
 import cn.hutool.crypto.symmetric.SymmetricCrypto;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 
 public class SecureDemo {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws IOException {
 //		//摘要算法
 		String message = "我是要加密的内容";
 //		String key     = "i am key";
@@ -73,5 +78,15 @@ public class SecureDemo {
 		SecureContext secureContext8 = new SecureContext("rsa",encypt7,map2);
 		System.out.println("rsa解密：" + secureContext8.decrypt());
 
+        String tDoc = "tDoc";
+		Map<String, Object> map3 = new HashMap<String, Object>() {{
+			put("key", "12dc293d43db3b237849");
+		}};
+		SecureContext secureContext9 = new SecureContext("des",tDoc,map3);
+		String encypt9 = secureContext9.encrypt();
+		System.out.println("des加密：" + encypt9);
+       //解密为字符串
+		SecureContext secureContext10 = new SecureContext("des",encypt9,map3);
+		System.out.println("des解密：" + secureContext10.decrypt());
 	}
 }

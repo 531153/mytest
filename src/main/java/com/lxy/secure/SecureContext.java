@@ -19,7 +19,7 @@ public class SecureContext {
 	private Secure secure;
 	private String content;
 	private Map<String, Object> argumentMap;
-	private static  Secure secureMd5 = new SecureMd5();
+	private static final Secure secureMd5 = new SecureMd5();
 
 	public SecureContext(String strategy, String content) {
 		this(strategy, content, null);

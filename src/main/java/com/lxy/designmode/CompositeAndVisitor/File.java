@@ -10,10 +10,6 @@ public class File extends Component {
 	public void show(String prefix) {
 		System.out.println(prefix + "/" + this.name);
 	}
-	@Override
-	public void accept(Visitor visitor){
-		visitor.visit(this);
-	}
 	public String getName(){
 		return this.name;
 	}

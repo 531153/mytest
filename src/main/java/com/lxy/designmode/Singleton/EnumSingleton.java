@@ -2,11 +2,11 @@ package com.lxy.designmode.Singleton;
 
 public class EnumSingleton {
 	public static EnumSingleton getInstance() {
-		return EnumHolder.INSTANCE.getInstance();
+		return EnumHolder.MSA.getInstance();
 	}
 
 	private enum EnumHolder {
-		INSTANCE;
+		MSA;
 		private EnumSingleton instance = null;
 
 		private EnumHolder() {
